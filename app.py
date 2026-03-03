@@ -13,21 +13,31 @@ app = Flask(__name__)
 
 def extrair_tabela_dsi(pdf_path):
     atividades = []
+    data_atual = None
 
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
             tables = page.extract_tables()
             for table in tables:
                 for row in table:
-                    if row and len(row) >= 6:
+                    if not row:
+                        continue
+
+                    # Detecta se é linha de data
+                    if row[0] and "MAR" in str(row[0]):
+                        data_atual = row[0]
+
+                    # Se for linha com dados suficientes
+                    if len(row) >= 6:
                         atividades.append({
-                            "data": row[0],
+                            "data": data_atual,
                             "hora": row[1],
                             "atividade": row[2],
                             "local": row[3],
                             "participantes": row[4],
                             "uniforme": row[5]
                         })
+
     return atividades
 
 
