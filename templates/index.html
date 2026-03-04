@@ -1,61 +1,161 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gerador de QTS</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            text-align: center;
-            padding-top: 50px;
-        }
+<meta charset="UTF-8">
+<title>Gerador de QTS</title>
 
-        .box {
-            background: white;
-            width: 400px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-        }
+<style>
 
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
+body{
+font-family: Arial;
+background:#f2f2f2;
+}
 
-        button {
-            background-color: #2e7d32;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+.container{
+width:700px;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
 
-        button:hover {
-            background-color: #1b5e20;
-        }
-    </style>
+h2{
+text-align:center;
+}
+
+input,select{
+width:100%;
+padding:8px;
+margin-top:5px;
+margin-bottom:15px;
+}
+
+button{
+padding:10px;
+background:#2e7d32;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+.atividade{
+border:1px solid #ddd;
+padding:10px;
+margin-bottom:10px;
+border-radius:5px;
+background:#fafafa;
+}
+
+</style>
+
+<script>
+
+function adicionarAtividade(){
+
+const container = document.getElementById("atividades")
+
+const bloco = document.createElement("div")
+bloco.className="atividade"
+
+bloco.innerHTML=`
+
+<label>Dia</label>
+<select name="dia">
+<option value="SEGUNDA">Segunda</option>
+<option value="TERÇA">Terça</option>
+<option value="QUARTA">Quarta</option>
+<option value="QUINTA">Quinta</option>
+<option value="SEXTA">Sexta</option>
+</select>
+
+<label>Hora início</label>
+<input type="text" name="hora_inicio">
+
+<label>Hora fim</label>
+<input type="text" name="hora_fim">
+
+<label>
+<input type="checkbox" name="geral">
+Atividade Geral (mesclada)
+</label>
+
+<label>Instruendo</label>
+<input type="text" name="instruendo">
+
+<label>Local</label>
+<input type="text" name="local">
+
+<label>Uniforme</label>
+<input type="text" name="uniforme">
+
+<label>Instrutor</label>
+<input type="text" name="instrutor">
+
+<label>Matéria</label>
+<input type="text" name="materia">
+
+<label>OII</label>
+<input type="text" name="oii">
+
+<label>Objetivo</label>
+<input type="text" name="objetivo">
+
+`
+
+container.appendChild(bloco)
+
+}
+
+</script>
+
 </head>
+
 <body>
 
-    <div class="box">
-        <h2>Gerador de QTS</h2>
+<div class="container">
 
-        <form method="POST" enctype="multipart/form-data">
-            <label>Enviar DSI (PDF)</label>
-            <input type="file" name="dsi" required>
+<h2>Gerador de QTS</h2>
 
-            <label>Selecionar Companhia</label>
-            <select name="companhia">
-                <option value="1ª Cia">1ª Cia</option>
-                <option value="2ª Cia">2ª Cia</option>
-                <option value="3ª Cia">3ª Cia</option>
-            </select>
+<form method="POST">
 
-            <button type="submit">Gerar QTS</button>
-        </form>
-    </div>
+<label>Semana de Instrução</label>
+<input type="text" name="semana">
+
+<label>Período</label>
+<input type="text" name="periodo">
+
+<label>Companhia</label>
+<input type="text" name="companhia">
+
+<h3>Dias sem expediente</h3>
+
+<label><input type="checkbox" name="sem_expediente" value="SEGUNDA"> Segunda</label><br>
+<label><input type="checkbox" name="sem_expediente" value="TERÇA"> Terça</label><br>
+<label><input type="checkbox" name="sem_expediente" value="QUARTA"> Quarta</label><br>
+<label><input type="checkbox" name="sem_expediente" value="QUINTA"> Quinta</label><br>
+<label><input type="checkbox" name="sem_expediente" value="SEXTA"> Sexta</label>
+
+<hr>
+
+<h3>Atividades</h3>
+
+<div id="atividades"></div>
+
+<button type="button" onclick="adicionarAtividade()">Adicionar Atividade</button>
+
+<br><br>
+
+<button type="submit">Gerar QTS</button>
+
+</form>
+
+</div>
 
 </body>
 </html>
